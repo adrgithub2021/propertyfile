@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<configuration-properties doc:name="Configuration properties" doc:id="2263f4a8-d80e-4df5-9333-6c788991aba1" file="properties\dev.properties" />
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="73f3a3cf-883c-4411-8352-f65cb0040d25" >
+		<http:listener-connection host="0.0.0.0" port="${port}" />
+	</http:listener-config>
+	<flow name="practise_propertyfileFlow" doc:id="0b91c4ed-5b82-4081-b6e3-0115e1176129" >
+		<http:listener doc:name="Listener" doc:id="9d735840-6aca-4a5a-828b-b4110ce4fb4f" config-ref="HTTP_Listener_config" path="/property"/>
+		<logger level="INFO" doc:name="Logger" doc:id="1e692d39-8742-4dd4-874f-fe4eab26777d" message="property file ::::::::::::::::::::::: ${Name}"/>
+		<ee:transform doc:name="Transform Message" doc:id="c538b4cb-1912-4f6b-b6d8-6cc29e7ea46e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

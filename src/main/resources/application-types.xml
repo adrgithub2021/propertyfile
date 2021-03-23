@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="input" format="json">
+      <types:shape format="weave" example="examples/input.json"><![CDATA[%dw 2.0
+
+type input = {|
+  Id: Number {"typeId": "int"}, 
+  City: String, 
+  Pin: Number {"typeId": "int"}
+|} {"example": "{\\\"Id\\\":101,\\\"City\\\":\\\"Hyd\\\",\\\"Pin\\\":522314}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#c538b4cb-1912-4f6b-b6d8-6cc29e7ea46e">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="input"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
